@@ -1,15 +1,25 @@
-import { createClient } from '@libsql/client'
+import { createClient, type Client } from '@libsql/client'
 
-const url = process.env.TURSO_DATABASE_URL || ''
-const authToken = process.env.TURSO_AUTH_TOKEN || ''
+let _db: Client | null = null
 
-if (!url || !authToken) {
-  throw new Error('Missing TURSO_DATABASE_URL or TURSO_AUTH_TOKEN environment variables')
+function getDb(): Client {
+  if (!_db) {
+    const url = process.env.TURSO_DATABASE_URL || ''
+    const authToken = process.env.TURSO_AUTH_TOKEN || ''
+
+    if (!url || !authToken) {
+      throw new Error('Missing TURSO_DATABASE_URL or TURSO_AUTH_TOKEN environment variables')
+    }
+
+    _db = createClient({ url, authToken })
+  }
+  return _db
 }
 
-export const db = createClient({
-  url,
-  authToken,
+export const db = new Proxy({} as Client, {
+  get(_target, prop) {
+    return (getDb() as any)[prop]
+  },
 })
 
 // Initialize database schema
