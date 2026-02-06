@@ -806,6 +806,7 @@ function ProductDetailContent() {
                   )}
               </div>
             </div>
+            )}
           </div>
 
           {/* Right Column: Purchase Section (Steam-style) */}
