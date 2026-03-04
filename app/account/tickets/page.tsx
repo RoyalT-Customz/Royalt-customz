@@ -89,22 +89,13 @@ export default function TicketsPage() {
   useEffect(() => {
     fetchUser()
     fetchTickets()
-    // Real-time updates: poll every 5 seconds
-    const interval = setInterval(() => {
-      fetchTickets()
-    }, 5000)
-
-    return () => clearInterval(interval)
+    // Removed automatic polling to prevent buffering
   }, [fetchTickets])
 
   useEffect(() => {
     if (selectedTicket) {
       fetchTicketDetails(selectedTicket.id)
-      // Poll for new messages every 3 seconds when viewing a ticket
-      const interval = setInterval(() => {
-        fetchTicketDetails(selectedTicket.id)
-      }, 3000)
-      return () => clearInterval(interval)
+      // Removed automatic polling to prevent buffering
     }
   }, [selectedTicket, fetchTicketDetails])
 

@@ -70,7 +70,6 @@ export default function Navigation() {
     { href: '/marketplace', label: 'Marketplace' },
     { href: '/reviews', label: 'Reviews' },
     { href: '/blog', label: 'Blog' },
-    { href: '/rt-chat', label: 'RT Chat' },
     { href: '/contact', label: 'Contact Us' },
   ]
 
